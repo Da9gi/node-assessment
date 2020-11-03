@@ -14,9 +14,23 @@ It consists of two components-->
                 (ii)   blog
                 (iii)  bookmark
 -----------------------------------------------------------------
+Packages
+-----------------------------------------------------------------
+Run <npm init> to initialize node-package-manager
+Installed packages using <npm install 'package_name'>
+. <express>
+. <postgres>
+. <sequelize>
+. <jsonwebtoken>
+. <passport>
+. <md5>
+. <passport-jwt>
+-----------------------------------------------------------------
 Process
 -----------------------------------------------------------------
-
+. Run <npm install> to get node_modules
+. Start Blog App <npm start>
+. 
 
 
 
