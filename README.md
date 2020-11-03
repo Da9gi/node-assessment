@@ -8,6 +8,7 @@ It consists of two components-->
                 (ii)   blog
                 (iii)  bookmark
                 (iv)   auth
+                --
 2)  DB --
         * Models ->
                 (i)    user
@@ -16,7 +17,7 @@ It consists of two components-->
 -----------------------------------------------------------------
 Packages
 -----------------------------------------------------------------
-Run >npm init to initialize node-package-manager
+Run > npm init to initialize node-package-manager
 Installed packages using >npm install 'package_name'
 . express
 . postgres
