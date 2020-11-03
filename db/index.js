@@ -1,18 +1,19 @@
 const { Sequelize } = require("sequelize");
+//require("dotenv").config();
 
 const db = new Sequelize({
     dialect: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "thinksys@123",
-    database: "node-assessment",
+    host: process.env.HOST,
+    port: process.env.PORT,
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DBNAME,
     sync: true,
 });
 
 const users = require("./models/users")(db);
 const blogs = require("./models/blogs")(db);
-const bookmarks = require("./models/bookmarks")(db);
+//const bookmarks = require("./models/bookmarks")(db);
 
 const init = async function () {
     try {
@@ -28,5 +29,5 @@ module.exports = {
     db,
     blogs,
     users,
-    bookmarks,
+    // bookmarks,
 };

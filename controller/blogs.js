@@ -1,4 +1,5 @@
 const passport = require("passport");
+const {request} = require("express");
 const { db } = require("../db/index");
 
 function Init(app) {
@@ -9,13 +10,12 @@ function Init(app) {
 
     app.get("/blogs/:id", async function (request, response) {
         const { id } = request.params;
-        const blog = await db.models.blogs.findOne({ id });
+        const blog = await db.models.blogs.findOne({ where: {id} });
         response.status(200).send(blog);
     });
-
+    //passport.authenticate("jwt", { session: false }),
     app.post(
-        "blogs/",
-        passport.authenticate("jwt", { session: false }),
+        "/blogs/",
         async function (request, response) {
             const { body } = request;
             const { blogName, author, blogDescription } = body;
@@ -32,14 +32,14 @@ function Init(app) {
 
     app.delete("/blogs/:id", async function (request, response) {
         const { id } = request.params;
-        const blog = await db.models.blogs.findOne({ id });
+        const blog = await db.models.blogs.findOne({ where: {id} });
         const del = await blog.destroy();
         response.status(200).send({ del });
     });
 
     app.put("/blogs/:id", async function (request, response) {
         const { id } = request.params;
-        const blog = await db.models.blogs.findOne({ id });
+        const blog = await db.models.blogs.findOne({ where: {id} });
 
         const { body } = request;
         const { blogName, author, blogDescription } = body;
