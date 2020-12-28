@@ -1,6 +1,7 @@
 const Token = require("jsonwebtoken");
+require("dotenv").config();
 
-const SECRET_KEY = process.env.SIGNING_KEY;
+const SECRET_KEY = process.env["SIGNING_KEY"];
 
 function generateJWT(payload) {
   return Token.sign(payload, SECRET_KEY, { expiresIn: "2d" });

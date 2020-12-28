@@ -1,5 +1,6 @@
 const md5 = require("md5");
-const {db} = require("../db/index");
+const {users} = require("../db/index");
+const { extractUser} = require("../utility");
 
 function Init(app) {
     // app.get("/user", async function (request, response) {
@@ -11,17 +12,14 @@ function Init(app) {
         const { body } = request;
         const {fName, lName, email, password} = body;
 
-        const createdUser = await db.models.users.create({
+        const createdUser = await users.create({
             fName, 
             lName, 
             email, 
             password: md5(password),
         });
 
-        const { password: Password, ...extractedUser } = JSON.parse(
-            JSON.stringify(createdUser)
-          );
-
+        const extractedUser = extractUser(createdUser);
         response.status(201).send(extractedUser);
     });
 

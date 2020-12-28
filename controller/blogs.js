@@ -13,10 +13,10 @@ function Init(app) {
         const blog = await db.models.blogs.findOne({ where: {id} });
         response.status(200).send(blog);
     });
-
+//passport.authenticate("jwt", { session: false }),
     app.post(
         "/blogs/",
-        passport.authenticate("jwt", { session: false }),
+        
         async function (request, response) {
             const { body } = request;
             const { blogName, author, blogDescription } = body;
