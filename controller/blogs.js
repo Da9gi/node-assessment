@@ -1,61 +1,60 @@
 const passport = require("passport");
-const {request} = require("express");
 const { db } = require("../db/index");
 
 function Init(app) {
-    app.get("/blogs", async function (request, response) {
-        const blogs = await db.models.blogs.findAll({});
-        response.status(200).send(blogs);
-    });
+  app.get("/blogs", async function (request, response) {
+    const blogs = await db.models.blogs.findAll({});
+    response.status(200).send(blogs);
+  });
 
-    app.get("/blogs/:id", async function (request, response) {
-        const { id } = request.params;
-        const blog = await db.models.blogs.findOne({ where: {id} });
-        response.status(200).send(blog);
-    });
-//passport.authenticate("jwt", { session: false }),
-    app.post(
-        "/blogs/",
-        
-        async function (request, response) {
-            const { body } = request;
-            const { blogName, author, blogDescription } = body;
+  app.get("/blogs/:id", async function (request, response) {
+    const { id } = request.params;
+    const blog = await db.models.blogs.findOne({ where: { id } });
+    response.status(200).send(blog);
+  });
+  //passport.authenticate("jwt", { session: false }),
+  app.post(
+    "/blogs/",
 
-            const createBook = await db.models.blogs.create({
-                blogName,
-                author,
-                blogDescription,
-            });
+    async function (request, response) {
+      const { body } = request;
+      const { blogName, author, blogDescription } = body;
 
-            response.status(201).send(createBook);
-        }
-    );
+      const createBook = await db.models.blogs.create({
+        blogName,
+        author,
+        blogDescription,
+      });
 
-    app.delete("/blogs/:id", async function (request, response) {
-        const { id } = request.params;
-        const blog = await db.models.blogs.findOne({ where: {id} });
-        const del = await blog.destroy();
-        response.status(200).send({ del });
-    });
+      response.status(201).send(createBook);
+    }
+  );
 
-    app.put("/blogs/:id", async function (request, response) {
-        const { id } = request.params;
-        const blog = await db.models.blogs.findOne({ where: {id} });
+  app.delete("/blogs/:id", async function (request, response) {
+    const { id } = request.params;
+    const blog = await db.models.blogs.findOne({ where: { id } });
+    const del = await blog.destroy();
+    response.status(200).send({ del });
+  });
 
-        const { body } = request;
-        const { blogName, author, blogDescription } = body;
+  app.put("/blogs/:id", async function (request, response) {
+    const { id } = request.params;
+    const blog = await db.models.blogs.findOne({ where: { id } });
 
-        blog.blogName = blogName ? blogName : blog.blogName;
-        blog.author = author ? author : blog.author;
-        blog.blogDescription = blogDescription
-            ? blogDescription
-            : blog.blogDescription;
+    const { body } = request;
+    const { blogName, author, blogDescription } = body;
 
-        await blog.save();
-        response.status(200).send(blog);
-    });
+    blog.blogName = blogName ? blogName : blog.blogName;
+    blog.author = author ? author : blog.author;
+    blog.blogDescription = blogDescription
+      ? blogDescription
+      : blog.blogDescription;
+
+    await blog.save();
+    response.status(200).send(blog);
+  });
 }
 
 module.exports = {
-    Init,
+  Init,
 };

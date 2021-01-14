@@ -7,14 +7,15 @@ const extractJWT = require("passport-jwt").ExtractJwt;
 const blogController = require("./controller/blogs");
 const userController = require("./controller/users");
 const authController = require("./controller/auth");
+const productController = require("./controller/products"); //products controller for redux-saga app
 
 const { init, users } = require("./db/index"); // database connection file
 const { SECRET_KEY, extractUser } = require("./utility");
 
 // Strategy options for new JWT Stategy
 const strategyOptions = {
-    jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: SECRET_KEY,
+  jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey: SECRET_KEY,
 };
 
 const PORT = 8100;
@@ -23,14 +24,14 @@ const app = express();
 init().then(console.log).catch(console.log);
 
 passport.use(
-    new JwtStrategy(strategyOptions, async function (payload, done) {
-        const user = await users.findOne({where : { id: payload.id }});
+  new JwtStrategy(strategyOptions, async function (payload, done) {
+    const user = await users.findOne({ where: { id: payload.id } });
 
-        if (!user) {
-            done(null, false);
-        }
-        done(null, extractUser(user));
-    })
+    if (!user) {
+      done(null, false);
+    }
+    done(null, extractUser(user));
+  })
 );
 
 // middlewares
@@ -42,7 +43,8 @@ app.use(passport.initialize());
 blogController.Init(app);
 userController.Init(app);
 authController.Init(app);
+productController.Init(app); //for redux-saga app
 
 app.listen(PORT, function () {
-    console.log(`Your Blogging App is running on port : ${PORT}`);
+  console.log(`Your Blogging App is running on port : ${PORT}`);
 });

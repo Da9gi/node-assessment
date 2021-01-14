@@ -1,7 +1,7 @@
-HOST = localhost,
-PORT = 5432,
-USERNAME = postgres,
-PASSWORD = thinksys@123,
-DBNAME = node-assessment,
+HOST = localhost
+PORT = 5432
+USER_NAME = postgres
+PASSWORD = thinksys@123
+DBNAME = node-assessment
 
-SIGNING_KEY = asdfghjklzxcvbnmqwertyuiop,
+SIGNING_KEY = asdfghjklzxcvbnmqwertyuiop
