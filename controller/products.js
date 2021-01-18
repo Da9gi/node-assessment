@@ -9,7 +9,6 @@ function Init(app) {
 
   app.post("/products/fetch", async function (request, response) {
     const { page, perPage } = request.body;
-    console.log(perPage);
     const start = (page - 1) * perPage;
     const end = page * perPage;
     const total_count = await (await db.models.products.findAll({})).length;
